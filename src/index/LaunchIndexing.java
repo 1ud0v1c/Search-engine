@@ -16,11 +16,14 @@ public class LaunchIndexing {
 		    if (file.isFile()) {
 		    	ReadFile rf = new ReadFile("corpus"+"/"+file.getName());
 		    	try {
-					documents.add(rf.fillDocument());
+		    		Document doc = rf.fillDocument();
+					documents.add(doc);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
 		    }
 		}
+		
+		
 	}
 }

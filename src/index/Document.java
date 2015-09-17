@@ -7,6 +7,13 @@ public class Document {
 	private HashMap<Word, Double>  indexes;
 	private double sumPonderationSquare;
 	
+	public Document(String documentName) {
+		super();
+		this.documentName = documentName;
+		this.indexes = new HashMap<Word, Double>();
+		sumPonderationSquare = 0;
+	}
+	
 	public Document(String documentName, HashMap<Word, Double> indexes, double sumPonderationSquare) {
 		super();
 		this.documentName = documentName;

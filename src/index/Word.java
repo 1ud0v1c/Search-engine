@@ -30,7 +30,7 @@ public class Word {
 	}
 
 	public void setWordWithOccurence(String file) {
-		System.out.println(occurences.size());
+		System.out.println("Occurences size : "+occurences.size());
 		int increment = occurences.get(file)+1;
 		System.out.println("Value +1 : "+increment);
 		occurences.put(file, increment);

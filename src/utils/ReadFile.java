@@ -30,14 +30,17 @@ public class ReadFile {
 				if(tokenWord.length() > 1) {
 					Word w = doc.containsWord(tokenWord);
 					if(w != null) {
+						System.out.println("Word not null");
 						w.setWordWithOccurence(file);
 						doc.addIndex(w, 0);
+						System.out.println(w);
 					} else {
+						System.out.println("New word");
 						Word newWord = new Word(tokenWord, file);
 						newWord.setWordWithOccurence(file);
 						doc.addIndex(newWord, 0);
+						System.out.println(newWord);
 					}
-					System.out.println(w);
 				}
 			}
 		}

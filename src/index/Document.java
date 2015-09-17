@@ -34,10 +34,13 @@ public class Document {
 	
 	public void addIndex(Word word, double ponderation) {
 		indexes.put(word, ponderation);
+		System.out.println("Ajout doc");
+		System.out.println(word);
 	}
 	
 	public Word containsWord(String name) {
 		Set<Word> words = indexes.keySet();
+		
 		System.out.println("--- KeySet");
 		for (Word w : words) {
 			System.out.println(w);
@@ -47,7 +50,6 @@ public class Document {
 		for (Word w : words) {
 			if(w.getName().equals(name)) {
 				System.out.println(w);
-				System.out.println(w.getOccurences().size());
 				return w;
 			}
 		}

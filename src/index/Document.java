@@ -78,7 +78,6 @@ public class Document {
 	    while (it.hasNext()) {
 	        Map.Entry pair = (Map.Entry)it.next();
 	        str += ((Word)pair.getKey()).getName() + " = " + pair.getValue()+"\n";
-	        it.remove(); 
 	    }
 	    str += "\n\n";
 	    return str;

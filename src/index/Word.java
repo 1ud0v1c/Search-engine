@@ -49,7 +49,6 @@ public class Word {
 	    while (it.hasNext()) {
 	        Map.Entry pair = (Map.Entry)it.next();
 	        str += "Document : "+pair.getKey() + " : " + pair.getValue()+"\n";
-	        it.remove(); 
 	    }
 	    return str;
 	}

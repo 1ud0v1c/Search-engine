@@ -42,14 +42,14 @@ public class Search {
 			if (word.length() == 3){
 				tokenizer.nextToken();
 				documentName = tokenizer.nextToken();
-				documentCoefs.putIfAbsent(documentName,
+				documentCoefs.put(documentName,
 						Double.parseDouble(tokenizer.nextToken()));
 			}
 			if (words.contains(word)) {
 				ponderation += Double.parseDouble(tokenizer.nextToken());
 				HashMap<String, Double> temp = new HashMap<String,Double>();
 				double salton = calculateSaltonCoef(ponderation, documentName);
-				temp.putIfAbsent(documentName, salton);
+				temp.put(documentName, salton);
 				saltonCoefs.put(word, temp);
 			}
 		}

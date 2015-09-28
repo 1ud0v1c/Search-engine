@@ -1,5 +1,6 @@
 package index;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -69,7 +70,7 @@ public class Document {
 	    while (it.hasNext()) {
 	        Map.Entry pair = (Map.Entry)it.next();
 	        Word word = ((Word)pair.getKey());
-	        str += "Mot : \""+word.getName()+ "\", occurence : "+word.getOccurences().get(documentName)+", value = " +pair.getValue()+"\n";
+	        str += "Mot : \""+word.getName()+ "\", occurence : "+word.getOccurences().get(documentName)+", value = " +new DecimalFormat("##.##").format(pair.getValue())+"\n";
 	    }
 	    str += "\n\n";
 	    return str;

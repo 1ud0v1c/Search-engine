@@ -6,8 +6,7 @@ import java.util.Map;
 public class Word {
 	private String name;
 	private HashMap<String, Integer>  occurences = new HashMap<>();
-	private int presenceInDocuments;
-		
+
 	public Word(String name, String file) {
 		super();
 		this.name = name;
@@ -30,17 +29,8 @@ public class Word {
 	}
 
 	public void setWordWithOccurence(String file) {
-		System.out.println("Occurences size : "+occurences.size());
 		int increment = occurences.get(file)+1;
-		System.out.println("Value +1 : "+increment);
 		occurences.put(file, increment);
-	}
-	
-	public int getPresenceInDocument() {
-		return presenceInDocuments;
-	}
-	public void setPresenceInDocument(int presenceInDocuments) {
-		this.presenceInDocuments = presenceInDocuments;
 	}
 	
 	public String toString() {

@@ -34,22 +34,13 @@ public class Document {
 	
 	public void addIndex(Word word, double ponderation) {
 		indexes.put(word, ponderation);
-		System.out.println("Ajout doc");
-		System.out.println(word);
 	}
 	
 	public Word containsWord(String name) {
 		Set<Word> words = indexes.keySet();
-		
-		System.out.println("--- KeySet");
-		for (Word w : words) {
-			System.out.println(w);
-		}
-		System.out.println("--- EndOfKeySet");
-		
+			
 		for (Word w : words) {
 			if(w.getName().equals(name)) {
-				System.out.println(w);
 				return w;
 			}
 		}
@@ -77,7 +68,8 @@ public class Document {
 		Iterator it = indexes.entrySet().iterator();
 	    while (it.hasNext()) {
 	        Map.Entry pair = (Map.Entry)it.next();
-	        str += ((Word)pair.getKey()).getName() + " = " + pair.getValue()+"\n";
+	        Word word = ((Word)pair.getKey());
+	        str += "Mot : \""+word.getName()+ "\", occurence : "+word.getOccurences().get(documentName)+", value = " +pair.getValue()+"\n";
 	    }
 	    str += "\n\n";
 	    return str;

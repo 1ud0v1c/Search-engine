@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 
 public class ReadFile {
 	private String file;
@@ -16,36 +17,33 @@ public class ReadFile {
 		this.file = file;
 	}
 	
-	public Document fillDocument() throws IOException {
+	public Document fillDocument(HashMap<String, Integer> allWords) throws IOException {
 		Document doc = new Document(file);
-		System.out.println("--- Début lecture fichier : "+file+" ---");
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
 		String line = null;
 		
 		while( (line = br.readLine())!= null ){
-			line = line.replaceAll("\\p{Punct}+", "").toLowerCase();			
+			line = line.replaceAll("\\p{Punct}+", " ").toLowerCase();			
 			String [] tokens = line.split("\\s+");
 			for (String tokenWord : tokens) {
 				if(tokenWord.length() > 1) {
 					Word w = doc.containsWord(tokenWord);
 					if(w != null) {
-						System.out.println("Word not null");
 						w.setWordWithOccurence(file);
 						doc.addIndex(w, 0);
-						System.out.println(w);
 					} else {
-						System.out.println("New word");
 						Word newWord = new Word(tokenWord, file);
 						newWord.setWordWithOccurence(file);
 						doc.addIndex(newWord, 0);
-						System.out.println(newWord);
+
+						int increment = (allWords.get(tokenWord) != null) ? allWords.get(tokenWord)+1 : 1;
+						allWords.put(tokenWord, increment);
 					}
 				}
 			}
 		}
 		
-		System.out.println("--- Fin lecture ---");
 		return doc;
 	}
 

@@ -15,18 +15,18 @@
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \lstset{
-  backgroundcolor=\color{white},   
-  basicstyle=\footnotesize,        
-  breakatwhitespace=false,         
-  breaklines=true,                 
-  captionpos=b,                    
-  commentstyle=\color{red},      
-  deletekeywords={...},          
-  escapeinside={\%*}{*)},          
-  extendedchars=true,             
-  frame=false,                     
-  keepspaces=true,                
-  keywordstyle=\color{blue},     
+  backgroundcolor=\color{white},
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  commentstyle=\color{red},
+  deletekeywords={...},
+  escapeinside={\%*}{*)},
+  extendedchars=true,
+  frame=false,
+  keepspaces=true,
+  keywordstyle=\color{blue},
   language=Java,
   literate=
   {²}{{\textsuperscript{2}}}1
@@ -70,9 +70,9 @@
   showstringspaces=false,
   showtabs=false,
   stepnumber=1,
-  stringstyle=\color{gray},     	
-  tabsize=4,                      
-  title=\lstname,               
+  stringstyle=\color{gray},
+  tabsize=4,
+  title=\lstname,
 }
 
 \title{ENSICAEN - 3A Info, Image\\TP 2 - Web Sémantique}
@@ -100,6 +100,86 @@
 \end{titlepage}
 
 
+\section{Structure}
+
+Nous avons donc réaliser deux classes afin de réaliser notre implémentation. La classe
+Document et la classe Word. Voici la structure de la classe Document :
+
+\begin{lstlisting}
+public class Document {
+  private String documentName;
+  private HashMap<Word, Double>  indexes;
+  private double sumPonderationSquare;
+
+  ...
+}
+\end{lstlisting}
+
+On retrouve donc trois attributs :
+\begin{itemize}
+  \item Le nom du document
+  \item Une HashMap contenant tout les mots du document, que l'on va associer à la valeur du
+  TF-IDF de ce mot.
+  \item On stock également, la valeur de la somme des pondérations au carré, comme cette
+  dernière ne dépend pas des éléments de la recherche, on peut la calculer en avance afin d'
+  accélerer la phase de recherche.
+\end{itemize}
+
+Concernant la classe Word, voici sa structure :
+
+\begin{lstlisting}
+public class Word {
+  private String name;
+  private HashMap<String, Integer>  occurences = new HashMap<>();
+  ...
+}
+\end{lstlisting}
+
+On y voit donc deux attributs :
+\begin{itemize}
+  \item Le nom du mot
+  \item Le nom du document dans lequel le mot est présent et le nombre d'occurences dans ce
+  document donné.
+\end{itemize}
+
+Enfin, pour réaliser la phase d'indexation, nous utilisons les trois variables suivantes :
+
+\begin{lstlisting}
+LinkedList<Document> documents = new LinkedList<Document>();
+HashMap<String, Integer> allWords = new HashMap<String, Integer>();
+...
+LinkedList<String> stopList = hfStopList.getWords();
+\end{lstlisting}
+
+\begin{itemize}
+  \item La première c'est bien sur tout simplement la liste de tout les documents que l'on
+  désire indexer.
+  \item La seconde, c'est une liste de tout les mots présents dans chaque document. Elle nous
+  permet tout simplement de compter le nombre de fois où un mot est présent dans chaque
+  document.
+  \item Enfin, la dernière c'est une liste de mots contenu dans une stop-liste (celle proposée
+  sur la plateforme). Lors de l'ajout d'un mot dans un document, on vérifie que ce dernier n'
+  est pas présent dans la stop-list.
+\end{itemize}
+
+
+
+\section{Implémentations}
+
+Réalisé :
+- indexation
+- recherche
+- stop list
+- ligne de commande
+- ?
+
+\section{Problèmes rencontrés}
+
+
+\section{Performances}
+
+
+\section{Conclusion}
 
 
 

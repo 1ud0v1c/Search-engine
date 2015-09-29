@@ -23,7 +23,7 @@ public class HandleFile {
 		this.fileName = fileName;
 	}
 	
-	public Document fillDocument(HashMap<String, Integer> allWords) throws IOException {
+	public Document fillDocument(HashMap<String, Integer> allWords, LinkedList<String> stopList) throws IOException {
 		Document doc = new Document(fileName);
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
@@ -33,7 +33,7 @@ public class HandleFile {
 			line = line.replaceAll("\\p{Punct}+", " ").toLowerCase();			
 			String [] tokens = line.split("\\s+");
 			for (String tokenWord : tokens) {
-				if(tokenWord.length() > 1) {
+				if(tokenWord.length() > 1 && !stopList.contains(tokenWord)) {
 					Word w = doc.containsWord(tokenWord);
 					if(w != null) {
 						w.setWordWithOccurence(fileName);
@@ -67,6 +67,17 @@ public class HandleFile {
 			file.println("###");
 		}
 		file.close();
+	}
+
+	public LinkedList<String> getWords() throws IOException {
+		LinkedList<String> stopList = new LinkedList<String>();
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));
+		String line = null;
+		
+		while( (line = br.readLine())!= null ){
+			stopList.add(line);
+		}		
+		return stopList;
 	}
 
 

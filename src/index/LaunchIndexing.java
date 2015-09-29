@@ -16,6 +16,12 @@ public class LaunchIndexing {
 		LinkedList<Document> documents = new LinkedList<Document>();
 		HashMap<String, Integer> allWords = new HashMap<String, Integer>();
 
+		
+		// Chargement de la stopList en mémoire
+		HandleFile hfStopList = new HandleFile("antidico.txt");
+		LinkedList<String> stopList = hfStopList.getWords();
+
+		
 		// Parcourt des fichiers et remplissage des Documents.
 		File[] files = new File("corpus").listFiles();
 		for (File file : files) {
@@ -23,7 +29,7 @@ public class LaunchIndexing {
 				HandleFile hf = new HandleFile("corpus" + "/" + file.getName());
 				nbDocs++;
 				try {
-					Document doc = hf.fillDocument(allWords);
+					Document doc = hf.fillDocument(allWords, stopList);
 					documents.add(doc);
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();

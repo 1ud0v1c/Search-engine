@@ -101,8 +101,8 @@
 
 
 \section{Structure}
-
-Nous avons donc réaliser deux classes afin de réaliser notre implémentation. La classe
+\subsection{Indexation}
+Nous avons donc réalisé deux classes afin d'implémenter notre solution : la classe
 Document et la classe Word. Voici la structure de la classe Document :
 
 \begin{lstlisting}
@@ -154,10 +154,10 @@ LinkedList<String> stopList = hfStopList.getWords();
 \begin{itemize}
   \item La première c'est bien sur tout simplement la liste de tout les documents que l'on
   désire indexer.
-  \item La seconde, c'est une liste de tout les mots présents dans chaque document. Elle nous
+  \item La seconde, c'est une liste de tous les mots présents dans chaque document. Elle nous
   permet tout simplement de compter le nombre de fois où un mot est présent dans chaque
   document.
-  \item Enfin, la dernière c'est une liste de mots contenu dans une stop-liste (celle proposée
+  \item Enfin, la dernière c'est une liste de mots contenus dans une stop-list (celle proposée
   sur la plateforme). Lors de l'ajout d'un mot dans un document, on vérifie que ce dernier n'
   est pas présent dans la stop-list.
 \end{itemize}
@@ -180,6 +180,30 @@ correspondant au document. Ensuite, on va simplement lister les mots avec la val
 pondération. Enfin, on termine le fichier par un ensemble de caractères afin de prévenir de
 l'analyse d'un nouveau document.
 
+\subsection{Recherche}
+
+Pour l'implémentation de la recherche, nous avons une classe, la classe Search :
+
+\begin{lstlisting}
+public class Search {
+     private Map<String, Double> documentCoefs;
+     private List<String> words;
+     private HashMap<String, Map<String, Double>> saltonCoefs;
+     private Map<String, Double> finalValues = null;
+     private String indexFileName;
+     ...
+}
+\end{lstlisting}
+
+La classe dispose des attributs suivants :
+\begin{itemize}
+  \item Une Map contenant le nom du document et son coefficient 
+  \item Une liste des mots contenus dans la requête de l'utilisateur 
+  \item Une HashMap mettant en relation les documents, les mots et le coefficient de Salton pour un mot dans un document donné
+  \item Une Map contenant les informations simplifiées qui seront affichées comme résultat à l'utilisateur
+  \item Une variable stockant le nom du fichier contenant l'index, qui sera donné au constructeur de la classe
+\end{itemize}
+Parmi ces attributs, il n'y a que le nom du fichier que la classe ne construira pas.
 
 \section{Défaut(s) de notre structure}
 

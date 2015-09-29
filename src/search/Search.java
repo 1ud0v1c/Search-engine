@@ -59,19 +59,27 @@ public class Search {
 		String currentLine, documentName = "";
 		NumberFormat nf = NumberFormat.getInstance();
 		double ponderation = 0.0;
+		// On lit le fichier contenant l'index
 		while ((currentLine = br.readLine()) != null) {
 			StringTokenizer tokenizer = new StringTokenizer(currentLine);
 			String word;
 			String firstElement = tokenizer.nextToken();
+			// si l'information est celle d'un document, on l'ajoute dans la map
+			// des documents
 			if (document) {
 				documentName = firstElement;
 				documentCoefs.put(documentName, nf.parse(tokenizer.nextToken()).doubleValue());
 				document = false;
 			} else {
+				// si l'information suivante est celle d'un document, on change
+				// le booléen
 				if (firstElement.equals("###")) {
 					document = true;
 				}
 				word = firstElement;
+				// si le mot trouvé dans l'index est l'un des mots de la
+				// requête, on récupère sa pondération et on calcule le
+				// coefficient de Salton
 				if (words.contains(word)) {
 					ponderation += nf.parse(tokenizer.nextToken()).doubleValue();
 					HashMap<String, Double> temp = new HashMap<String, Double>();
@@ -82,7 +90,6 @@ public class Search {
 						temp.put(word, salton);
 						saltonCoefs.put(documentName, temp);
 					}
-
 				}
 			}
 		}
@@ -91,6 +98,7 @@ public class Search {
 	}
 
 	private void cleanRequest(String request) {
+		//On récupère les différents mots de la requête et on les enregistre
 		StringTokenizer tokenizer = new StringTokenizer(request, " ,;.:!?'()");
 		while (tokenizer.hasMoreTokens()) {
 			String temp = tokenizer.nextToken().toLowerCase();
@@ -105,11 +113,13 @@ public class Search {
 	}
 
 	private void sortHashMaps() {
+		//On trie la liste des documents par valeur du coefficient
 		ValueComparator comparator = new ValueComparator(documentCoefs);
 		TreeMap<String, Double> temp = new TreeMap<String, Double>(comparator);
 		temp.putAll(documentCoefs);
 		documentCoefs = temp;
 
+		//On récupère les résultats, on les met dans une liste selon le document et le coefficient, puis on les trie selon la valeur du coefficient
 		Iterator it = saltonCoefs.entrySet().iterator();
 		HashMap<String, Double> values = new HashMap<String, Double>();
 		while (it.hasNext()) {
@@ -118,10 +128,12 @@ public class Search {
 			HashMap<String, Double> value = (HashMap<String, Double>) pair.getValue();
 			Iterator itInside = value.entrySet().iterator();
 			while (itInside.hasNext()) {
+				//On récupère uniquement le nom du document et le coefficient
 				Map.Entry pairInside = (Map.Entry) itInside.next();
 				values.put(docName, (double) pairInside.getValue());
 			}
 		}
+		//On trie les résultats à afficher et on les stocke
 		comparator = new ValueComparator(values);
 		temp = new TreeMap<String, Double>(comparator);
 		temp.putAll(values);

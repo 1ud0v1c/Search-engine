@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{fullpage}
+
+\usepackage{array,multirow,makecell}
+\setcellgapes{1pt}
+\makegapedcells
+\usepackage[table]{xcolor}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\lstset{
+  backgroundcolor=\color{white},   
+  basicstyle=\footnotesize,        
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  commentstyle=\color{red},      
+  deletekeywords={...},          
+  escapeinside={\%*}{*)},          
+  extendedchars=true,             
+  frame=false,                     
+  keepspaces=true,                
+  keywordstyle=\color{blue},     
+  language=Java,
+  literate=
+  {²}{{\textsuperscript{2}}}1
+  {⁴}{{\textsuperscript{4}}}1
+  {⁶}{{\textsuperscript{6}}}1
+  {⁸}{{\textsuperscript{8}}}1
+  {€}{{\euro{}}}1
+  {é}{{\'e}}1
+  {è}{{\`{e}}}1
+  {ê}{{\^{e}}}1
+  {ë}{{\¨{e}}}1
+  {É}{{\'{E}}}1
+  {Ê}{{\^{E}}}1
+  {û}{{\^{u}}}1
+  {ù}{{\`{u}}}1
+  {â}{{\^{a}}}1
+  {à}{{\`{a}}}1
+  {á}{{\'{a}}}1
+  {ã}{{\~{a}}}1
+  {Á}{{\'{A}}}1
+  {Â}{{\^{A}}}1
+  {Ã}{{\~{A}}}1
+  {ç}{{\c{c}}}1
+  {Ç}{{\c{C}}}1
+  {õ}{{\~{o}}}1
+  {ó}{{\'{o}}}1
+  {ô}{{\^{o}}}1
+  {Õ}{{\~{O}}}1
+  {Ó}{{\'{O}}}1
+  {Ô}{{\^{O}}}1
+  {î}{{\^{i}}}1
+  {Î}{{\^{I}}}1
+  {í}{{\'{i}}}1
+  {Í}{{\~{Í}}}1,
+  morekeywords={*,...},
+  numbers=left,
+  numbersep=5pt,
+  numberstyle=\tiny\color{black},
+  rulecolor=\color{black},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=1,
+  stringstyle=\color{gray},     	
+  tabsize=4,                      
+  title=\lstname,               
+}
+
+\title{ENSICAEN - 3A Info, Image\\TP 2 - Web Sémantique}
+\author{\textsc{Lagarrigue} Lucie \& \textsc{Vimont} Ludovic}
+\date{\today}
+\makeatletter
+
+\begin{document}
+
+\begin{titlepage}
+	\begin{center}
+		\vspace*{\fill}
+		\textsc{\Large \@title }
+		\HRule
+		\vspace{0.5cm}
+		\begin{center}
+			\includegraphics[width=0.7\textwidth]{../data/logo.jpg}
+		\end{center}
+		\vspace{0.5cm}
+		\HRule \\
+		\large{\@author} \\
+		\@date
+		\vspace*{\fill}
+	\end{center}
+\end{titlepage}
+
+
+
+
+
+\end{document}
+

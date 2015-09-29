@@ -49,13 +49,14 @@ public class HandleFile {
 				}
 			}
 		}
-		
+		br.close();
 		return doc;
 	}
 	
 	public void writeIndex(LinkedList<Document> docs) throws IOException {
 		PrintWriter file = new PrintWriter(new FileWriter(fileName));
 		for (Document doc : docs) {
+			System.out.println(doc.getDocumentName());
 			file.println(doc.getDocumentName()+" "+new DecimalFormat("##.##").format(doc.getSumPonderationSquare()));
 			HashMap<Word, Double> indexes = doc.getIndexes();
 			Iterator it = indexes.entrySet().iterator();
@@ -76,7 +77,8 @@ public class HandleFile {
 		
 		while( (line = br.readLine())!= null ){
 			stopList.add(line);
-		}		
+		}
+		br.close();
 		return stopList;
 	}
 

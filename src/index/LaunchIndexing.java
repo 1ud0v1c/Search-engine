@@ -17,7 +17,7 @@ public class LaunchIndexing {
 		HashMap<String, Integer> allWords = new HashMap<String, Integer>();
 
 		
-		// Chargement de la stopList en mémoire
+		// Chargement de la stopList en mï¿½moire
 		HandleFile hfStopList = new HandleFile("antidico.txt");
 		LinkedList<String> stopList = hfStopList.getWords();
 
@@ -37,7 +37,7 @@ public class LaunchIndexing {
 			}
 		}
 		
-		// Calcul de la pondération pour chaque mot par rapport aux autres documents
+		// Calcul de la pondï¿½ration pour chaque mot par rapport aux autres documents
 		for (Document doc : documents) {
 			String docName = doc.getDocumentName();
 			HashMap<Word, Double> indexes = doc.getIndexes();
@@ -51,7 +51,7 @@ public class LaunchIndexing {
 			}
 		}
 		
-		// Pré-calcul pour la recherche dépendant du document
+		// Prï¿½-calcul pour la recherche dï¿½pendant du document
 		for (Document doc : documents) {
 			double sumPonderationSquare = 0;
 			HashMap<Word, Double> indexes = doc.getIndexes();
@@ -71,7 +71,7 @@ public class LaunchIndexing {
 //		Iterator it = allWords.entrySet().iterator();
 //		while (it.hasNext()) {
 //			Map.Entry pair = (Map.Entry) it.next();
-//			System.out.println("Mot : " + pair.getKey() + " => présence "
+//			System.out.println("Mot : " + pair.getKey() + " => prï¿½sence "
 //					+ pair.getValue());
 //		}
 

@@ -21,7 +21,7 @@ public class Search {
 	private Map<String, Double> documentCoefs;
 	private List<String> words;
 	private HashMap<String, Map<String, Double>> saltonCoefs;
-	private Map<String, Double> finalValues;
+	private Map<String, Double> finalValues = null;
 	private String indexFileName;
 
 	public Search(String request, String inIndexFileName) {
@@ -35,6 +35,7 @@ public class Search {
 
 	public void search() throws IOException, ParseException {
 		readIndexes();
+		printResults();
 	}
 
 	private void readIndexes() throws IOException, ParseException {
@@ -59,7 +60,6 @@ public class Search {
 				}
 				word = firstElement;
 				if (words.contains(word)) {
-					System.out.println(documentName);
 					ponderation += nf.parse(tokenizer.nextToken()).doubleValue();
 					HashMap<String, Double> temp = new HashMap<String, Double>();
 					double salton = calculateSaltonCoef(ponderation, documentName);
@@ -75,7 +75,7 @@ public class Search {
 		}
 		br.close();
 		sortHashMaps();
-		hashstoString();
+	//	hashstoString();
 	}
 
 	private void cleanRequest(String request) {
@@ -94,23 +94,11 @@ public class Search {
 
 	private void hashstoString() {
 		System.out.println("Document coefs : ");
-		Iterator it = documentCoefs.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " = " + pair.getValue());
-		}
+		printMap(documentCoefs);
 		System.out.println("Salton coefs : ");
-		it = saltonCoefs.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " = " + pair.getValue());
-		}
+		printMap(saltonCoefs);
 		System.out.println("Final result : ");
-		it = finalValues.entrySet().iterator();
-		while (it.hasNext()) {
-			Map.Entry pair = (Map.Entry) it.next();
-			System.out.println(pair.getKey() + " = " + pair.getValue());
-		}
+		printMap(finalValues);
 	}
 
 	private void sortHashMaps() {
@@ -128,7 +116,6 @@ public class Search {
 			Iterator itInside = value.entrySet().iterator();
 			while (itInside.hasNext()) {
 				Map.Entry pairInside = (Map.Entry) itInside.next();
-				System.out.println(pairInside.toString());
 				values.put(docName, (double) pairInside.getValue());
 			}
 		}
@@ -136,5 +123,23 @@ public class Search {
 		temp = new TreeMap<String, Double>(comparator);
 		temp.putAll(values);
 		finalValues = temp;
+	}
+
+	public void printResults() {
+		if (finalValues != null) {
+			Iterator it = finalValues.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				System.out.println(pair.getKey());
+			}
+		}
+	}
+
+	private void printMap(Map map) {
+		Iterator it = map.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			System.out.println(pair.getKey() + " = " + pair.getValue());
+		}
 	}
 }

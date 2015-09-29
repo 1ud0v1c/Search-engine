@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.4.4)  29 SEP 2015 20:30
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2015.4.4)  29 SEP 2015 21:58
 entering extended mode
 **C:/Users/LUDOVIC/Desktop/Search-engine/rapport/src/rapport.tex
 (C:/Users/LUDOVIC/Desktop/Search-engine/rapport/src/rapport.tex
@@ -438,10 +438,10 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
  [1] [2]
 (C:\Users\LUDOVIC\Desktop\Search-engine\rapport\src\rapport.aux) ) 
 Here is how much of TeX's memory you used:
- 4363 strings out of 493921
- 54685 string characters out of 3144871
- 187451 words of memory out of 3000000
- 7617 multiletter control sequences out of 15000+200000
+ 4370 strings out of 493921
+ 54764 string characters out of 3144871
+ 195451 words of memory out of 3000000
+ 7624 multiletter control sequences out of 15000+200000
  10264 words of font info for 23 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  41i,5n,36p,270b,1179s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -455,9 +455,9 @@ fonts\pk\ljfour\jknappen\ec\dpi600\ecrm1200.pk> <C:\Users\LUDOVIC\AppData\Local
 \MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1200.pk> <C:\Users\LUDOVIC\A
 ppData\Local\MiKTeX\2.9\fonts\pk\ljfour\jknappen\ec\dpi600\eccc1440.pk><C:/Prog
 ram Files (x86)/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on rapport.pdf (3 pages, 100279 bytes).
+Output written on rapport.pdf (3 pages, 106484 bytes).
 PDF statistics:
- 233 PDF objects out of 1000 (max. 8388607)
+ 248 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

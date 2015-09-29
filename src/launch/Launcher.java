@@ -22,7 +22,7 @@ public class Launcher {
 		while (true) {
 			System.out.println("Entrez r pour rechercher un ou plusieurs mots");
 			System.out.println("Entrez i pour lancer l'indexation");
-			System.out.println("Entrez q pour quitter");
+			System.out.print("Entrez q pour quitter\n> ");
 			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 			try {
 				String request = input.readLine();
@@ -30,7 +30,7 @@ public class Launcher {
 					return;
 				}
 				if (request.equals("i")) {
-					System.out.println("Entrez le nom du fichier oÃ¹ enregistrer l'index (sans extension): ");
+					System.out.println("Entrez le nom du fichier à enregistrer l'index (sans extension) : ");
 					index(input.readLine());
 				} else {
 					System.out.println("Entrez le nom du fichier contenant l'index (sans extension): ");
@@ -39,7 +39,7 @@ public class Launcher {
 					request = input.readLine();
 					Search search = new Search(request, indexFileName+".txt");
 					search.search();
-					System.out.println("RÃ©sultats : ");
+					System.out.println("Résultats : ");
 					search.printResults();
 				}
 			} catch (IOException | ParseException e1) {
@@ -102,15 +102,6 @@ public class Launcher {
 
 		HandleFile hf = new HandleFile(indexFileName+".txt");
 		hf.writeIndex(documents);
-
-		// System.out.println("--------------------------------------- Liste des
-		// mots ------------------------------------------------------");
-		// Iterator it = allWords.entrySet().iterator();
-		// while (it.hasNext()) {
-		// Map.Entry pair = (Map.Entry) it.next();
-		// System.out.println("Mot : " + pair.getKey() + " => prï¿½sence "
-		// + pair.getValue());
-		// }
 	}
 
 }

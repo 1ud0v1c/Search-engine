@@ -162,6 +162,32 @@ LinkedList<String> stopList = hfStopList.getWords();
   est pas présent dans la stop-list.
 \end{itemize}
 
+Enfin, la dernière phase de l'indexation permet d'enregistrer les résultats calculés dans un
+fichier texte, dont voici un extrait :
+
+\begin{lstlisting}
+corpus/Automne_GA.txt 159,58
+cache 1,61
+hameaux 2,3
+...
+pauvres 1,61
+mourir 2,3
+###
+\end{lstlisting}
+
+On commence par fournir le nom du document, ainsi que la valeur du coefficient de Salton
+correspondant au document. Ensuite, on va simplement lister les mots avec la valeur de leur
+pondération. Enfin, on termine le fichier par un ensemble de caractères afin de prévenir de
+l'analyse d'un nouveau document.
+
+
+\section{Défaut(s) de notre structure}
+
+Un des principales défaut de notre structure, c'est le stockage des mots par HashMaps dans la
+la classe Document, lorsque l'on va parcourir le fichier afin de compter les occurences d'un
+mot la HashMap n'étant pas prévu pour pouvoir récupérer une clé grâce à sa valeur, cela nous
+oblige à faire un parcours de cette dernière, afin de pouvoir mettre à jour le mot existant
+au lieu d'en recréer un nouveau.
 
 
 \section{Implémentations}
@@ -173,10 +199,8 @@ Réalisé :
 - ligne de commande
 - ?
 
-\section{Problèmes rencontrés}
 
-
-\section{Performances}
+% \section{Performances}
 
 
 \section{Conclusion}
@@ -184,4 +208,3 @@ Réalisé :
 
 
 \end{document}
-

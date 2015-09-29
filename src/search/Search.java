@@ -16,13 +16,14 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TreeMap;
 
+import utils.ValueComparator;
 import index.Word;
 
 public class Search {
 
-	private HashMap<String, Double> documentCoefs;
+	private Map<String, Double> documentCoefs;
 	private List<String> words;
-	private HashMap<String, HashMap<String, Double>> saltonCoefs;
+	private HashMap<String, Map<String, Double>> saltonCoefs;
 	private String indexFileName;
 
 	public Search(String request, String inIndexFileName) {
@@ -31,7 +32,7 @@ public class Search {
 		indexFileName = inIndexFileName;
 		cleanRequest(request);
 		documentCoefs = new HashMap<String, Double>();
-		saltonCoefs = new HashMap<String, HashMap<String, Double>>();
+		saltonCoefs = new HashMap<String, Map<String, Double>>();
 	}
 
 	public void search() throws IOException, ParseException {
@@ -68,12 +69,18 @@ public class Search {
 					HashMap<String, Double> temp = new HashMap<String, Double>();
 					double salton = calculateSaltonCoef(ponderation,
 							documentName);
-					temp.put(word, salton);
-					saltonCoefs.put(documentName, temp);
+					if (saltonCoefs.containsKey(documentName)) {
+						saltonCoefs.get(documentName).put(word, salton);
+					} else {
+						temp.put(word, salton);
+						saltonCoefs.put(documentName, temp);
+					}
+
 				}
 			}
 		}
 		br.close();
+		sortHashMaps();
 		hashstoString();
 	}
 
@@ -104,6 +111,27 @@ public class Search {
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
 			System.out.println(pair.getKey() + " = " + pair.getValue());
+		}
+	}
+
+	private void sortHashMaps() {
+
+		ValueComparator comparator = new ValueComparator(documentCoefs);
+		TreeMap<String, Double> temp = new TreeMap<String, Double>(comparator);
+		temp.putAll(documentCoefs);
+		documentCoefs = temp;
+
+		Iterator it = saltonCoefs.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			comparator = new ValueComparator(
+					(HashMap<String, Double>) pair.getValue());
+			temp = new TreeMap<String, Double>(comparator);
+			temp.putAll((HashMap<String, Double>) pair.getValue());
+			Map<String, Double> hash = temp;
+			saltonCoefs.put((String) pair.getKey(),
+					(Map<String, Double>) hash);
+			
 		}
 	}
 }

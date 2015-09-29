@@ -36,13 +36,17 @@ public class Search {
 	public void search() throws IOException, ParseException {
 		readIndexes();
 	}
-	
+
 	public void printResults() {
 		if (finalValues != null) {
-			Iterator it = finalValues.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry pair = (Map.Entry) it.next();
-				System.out.println(pair.getKey());
+			if (finalValues.isEmpty()) {
+				System.out.println("Aucun résultat !");
+			} else {
+				Iterator it = finalValues.entrySet().iterator();
+				while (it.hasNext()) {
+					Map.Entry pair = (Map.Entry) it.next();
+					System.out.println(pair.getKey());
+				}
 			}
 		}
 	}
@@ -123,7 +127,7 @@ public class Search {
 		temp.putAll(values);
 		finalValues = temp;
 	}
-	
+
 	private void hashstoString() {
 		System.out.println("Document coefs : ");
 		printMap(documentCoefs);

@@ -35,7 +35,16 @@ public class Search {
 
 	public void search() throws IOException, ParseException {
 		readIndexes();
-		printResults();
+	}
+	
+	public void printResults() {
+		if (finalValues != null) {
+			Iterator it = finalValues.entrySet().iterator();
+			while (it.hasNext()) {
+				Map.Entry pair = (Map.Entry) it.next();
+				System.out.println(pair.getKey());
+			}
+		}
 	}
 
 	private void readIndexes() throws IOException, ParseException {
@@ -75,7 +84,6 @@ public class Search {
 		}
 		br.close();
 		sortHashMaps();
-	//	hashstoString();
 	}
 
 	private void cleanRequest(String request) {
@@ -90,15 +98,6 @@ public class Search {
 
 	private double calculateSaltonCoef(double ponderation, String documentName) {
 		return ponderation / Math.sqrt(documentCoefs.get(documentName) * words.size());
-	}
-
-	private void hashstoString() {
-		System.out.println("Document coefs : ");
-		printMap(documentCoefs);
-		System.out.println("Salton coefs : ");
-		printMap(saltonCoefs);
-		System.out.println("Final result : ");
-		printMap(finalValues);
 	}
 
 	private void sortHashMaps() {
@@ -124,15 +123,14 @@ public class Search {
 		temp.putAll(values);
 		finalValues = temp;
 	}
-
-	public void printResults() {
-		if (finalValues != null) {
-			Iterator it = finalValues.entrySet().iterator();
-			while (it.hasNext()) {
-				Map.Entry pair = (Map.Entry) it.next();
-				System.out.println(pair.getKey());
-			}
-		}
+	
+	private void hashstoString() {
+		System.out.println("Document coefs : ");
+		printMap(documentCoefs);
+		System.out.println("Salton coefs : ");
+		printMap(saltonCoefs);
+		System.out.println("Final result : ");
+		printMap(finalValues);
 	}
 
 	private void printMap(Map map) {

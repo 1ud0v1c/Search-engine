@@ -4,12 +4,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.TreeMap;
 
 import index.Word;
 
@@ -29,33 +34,42 @@ public class Search {
 		saltonCoefs = new HashMap<String, HashMap<String, Double>>();
 	}
 
-	public void search() throws IOException {
+	public void search() throws IOException, ParseException {
 		readIndexes();
-		
+
 	}
 
-	private void readIndexes() throws IOException {
+	private void readIndexes() throws IOException, ParseException {
+		boolean document = true;
 		File indexFile = new File(indexFileName);
 		FileReader reader = new FileReader(indexFile);
 		BufferedReader br = new BufferedReader(reader);
 		String currentLine, documentName = "";
+		NumberFormat nf = NumberFormat.getInstance();
 		double ponderation = 0.0;
 		while ((currentLine = br.readLine()) != null) {
 			StringTokenizer tokenizer = new StringTokenizer(currentLine);
 			String word;
-			if (tokenizer.countTokens() == 3){
-				tokenizer.nextToken();
-				documentName = tokenizer.nextToken();
-				documentCoefs.put(documentName,
-						Double.parseDouble(tokenizer.nextToken()));
-			}else {
-				word = tokenizer.nextToken();
+			String firstElement = tokenizer.nextToken();
+			if (document) {
+				documentName = firstElement;
+				documentCoefs.put(documentName, nf.parse(tokenizer.nextToken())
+						.doubleValue());
+				document = false;
+			} else {
+				if (firstElement.equals("###")) {
+					document = true;
+				}
+				word = firstElement;
 				if (words.contains(word)) {
-					ponderation += Double.parseDouble(tokenizer.nextToken());
-					HashMap<String, Double> temp = new HashMap<String,Double>();
-					double salton = calculateSaltonCoef(ponderation, documentName);
-					temp.put(documentName, salton);
-					saltonCoefs.put(word, temp);
+					System.out.println(documentName);
+					ponderation += nf.parse(tokenizer.nextToken())
+							.doubleValue();
+					HashMap<String, Double> temp = new HashMap<String, Double>();
+					double salton = calculateSaltonCoef(ponderation,
+							documentName);
+					temp.put(word, salton);
+					saltonCoefs.put(documentName, temp);
 				}
 			}
 		}
@@ -77,19 +91,19 @@ public class Search {
 		return ponderation
 				/ Math.sqrt(documentCoefs.get(documentName) * words.size());
 	}
-	
-	private void hashstoString(){
+
+	private void hashstoString() {
 		System.out.println("Document coefs : ");
 		Iterator it = documentCoefs.entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry pair = (Map.Entry)it.next();
-	        System.out.println(pair.getKey() + " = " + pair.getValue());
-	    }
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			System.out.println(pair.getKey() + " = " + pair.getValue());
+		}
 		System.out.println("Salton coefs : ");
 		it = saltonCoefs.entrySet().iterator();
-	    while (it.hasNext()) {
-	        Map.Entry pair = (Map.Entry)it.next();
-	        System.out.println(pair.getKey() + " = " + pair.getValue());
-	    }
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			System.out.println(pair.getKey() + " = " + pair.getValue());
+		}
 	}
 }

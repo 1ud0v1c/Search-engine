@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -17,13 +15,13 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import utils.ValueComparator;
-import index.Word;
 
 public class Search {
 
 	private Map<String, Double> documentCoefs;
 	private List<String> words;
 	private HashMap<String, Map<String, Double>> saltonCoefs;
+	private Map<String, Double> finalValues;
 	private String indexFileName;
 
 	public Search(String request, String inIndexFileName) {
@@ -37,7 +35,6 @@ public class Search {
 
 	public void search() throws IOException, ParseException {
 		readIndexes();
-
 	}
 
 	private void readIndexes() throws IOException, ParseException {
@@ -54,8 +51,7 @@ public class Search {
 			String firstElement = tokenizer.nextToken();
 			if (document) {
 				documentName = firstElement;
-				documentCoefs.put(documentName, nf.parse(tokenizer.nextToken())
-						.doubleValue());
+				documentCoefs.put(documentName, nf.parse(tokenizer.nextToken()).doubleValue());
 				document = false;
 			} else {
 				if (firstElement.equals("###")) {
@@ -64,11 +60,9 @@ public class Search {
 				word = firstElement;
 				if (words.contains(word)) {
 					System.out.println(documentName);
-					ponderation += nf.parse(tokenizer.nextToken())
-							.doubleValue();
+					ponderation += nf.parse(tokenizer.nextToken()).doubleValue();
 					HashMap<String, Double> temp = new HashMap<String, Double>();
-					double salton = calculateSaltonCoef(ponderation,
-							documentName);
+					double salton = calculateSaltonCoef(ponderation, documentName);
 					if (saltonCoefs.containsKey(documentName)) {
 						saltonCoefs.get(documentName).put(word, salton);
 					} else {
@@ -95,8 +89,7 @@ public class Search {
 	}
 
 	private double calculateSaltonCoef(double ponderation, String documentName) {
-		return ponderation
-				/ Math.sqrt(documentCoefs.get(documentName) * words.size());
+		return ponderation / Math.sqrt(documentCoefs.get(documentName) * words.size());
 	}
 
 	private void hashstoString() {
@@ -112,26 +105,36 @@ public class Search {
 			Map.Entry pair = (Map.Entry) it.next();
 			System.out.println(pair.getKey() + " = " + pair.getValue());
 		}
+		System.out.println("Final result : ");
+		it = finalValues.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			System.out.println(pair.getKey() + " = " + pair.getValue());
+		}
 	}
 
 	private void sortHashMaps() {
-
 		ValueComparator comparator = new ValueComparator(documentCoefs);
 		TreeMap<String, Double> temp = new TreeMap<String, Double>(comparator);
 		temp.putAll(documentCoefs);
 		documentCoefs = temp;
 
 		Iterator it = saltonCoefs.entrySet().iterator();
+		HashMap<String, Double> values = new HashMap<String, Double>();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
-			comparator = new ValueComparator(
-					(HashMap<String, Double>) pair.getValue());
-			temp = new TreeMap<String, Double>(comparator);
-			temp.putAll((HashMap<String, Double>) pair.getValue());
-			Map<String, Double> hash = temp;
-			saltonCoefs.put((String) pair.getKey(),
-					(Map<String, Double>) hash);
-			
+			String docName = (String) pair.getKey();
+			HashMap<String, Double> value = (HashMap<String, Double>) pair.getValue();
+			Iterator itInside = value.entrySet().iterator();
+			while (itInside.hasNext()) {
+				Map.Entry pairInside = (Map.Entry) itInside.next();
+				System.out.println(pairInside.toString());
+				values.put(docName, (double) pairInside.getValue());
+			}
 		}
+		comparator = new ValueComparator(values);
+		temp = new TreeMap<String, Double>(comparator);
+		temp.putAll(values);
+		finalValues = temp;
 	}
 }

@@ -203,7 +203,19 @@ La classe dispose des attributs suivants :
   \item Une Map contenant les informations simplifiées qui seront affichées comme résultat à l'utilisateur
   \item Une variable stockant le nom du fichier contenant l'index, qui sera donné au constructeur de la classe
 \end{itemize}
-Parmi ces attributs, il n'y a que le nom du fichier que la classe ne construira pas.
+Parmi ces attributs, il n'y a que le nom du fichier que la classe ne construira pas.\\
+
+La recherche est composé de quatre étapes principales :
+\begin{itemize}
+     \item On extrait les mots de la requête de l'utilisateur et on les stocke.
+     \item On ouvre et lit l'index pour rechercher ses mots. A chaque fois qu'on rencontre un document, on stocke les informations de ce dernier, même si le mot n'est pas compris dedans.
+	  Si l'un des mots de la requête est compris dans le titre, on augmente grandement la pondération du document. Cette valeur est arbitraire.
+	  Lorsqu'on rencontre un mot, on regarde s'il est dans la requête. Si oui, on le stocke en reliant le document dans lequel il est. On enregistre également sa pondération.
+     \item Lorsqu'on a tous ces éléments, on calcule le coefficient de Salton pour chaque document et on le stocke dans une nouvelle liste.
+     \item On peut ensuite trier les résultats. Pour cela, on utilise le nombre de mots correspondant dans chaque document, leur pondération, le coefficient de Salton. 
+	  On a juste à mettre ensemble tout ce qui a été récupéré ou calculé précédemment. On peut donc ensuite afficher la liste des documents dans lesquels la requête a été trouvé dans un bon ordre.
+\end{itemize}
+
 
 \section{Défaut(s) de notre structure}
 
@@ -213,22 +225,13 @@ mot la HashMap n'étant pas prévu pour pouvoir récupérer une clé grâce à s
 oblige à faire un parcours de cette dernière, afin de pouvoir mettre à jour le mot existant
 au lieu d'en recréer un nouveau.
 
-
-\section{Implémentations}
-
-Réalisé :
-- indexation
-- recherche
-- stop list
-- ligne de commande
-- ?
+La présence de HashMaps rend aussi le tri par valeur plus difficile : il faut créer une nouvelle classe pour pouvoir le faire.
 
 
-% \section{Performances}
+\section{Performances}
 
 
-\section{Conclusion}
-
+%\section{Conclusion}
 
 
 \end{document}

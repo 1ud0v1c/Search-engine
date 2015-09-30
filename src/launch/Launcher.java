@@ -31,12 +31,12 @@ public class Launcher {
 					return;
 				}
 				if (request.equals("i")) {
-					System.out.println("Entrez le nom du fichier � enregistrer l'index (sans extension) : ");
+					System.out.println("Entrez le nom du fichier � enregistrer l'index  : ");
 					indexFileName = input.readLine();
 					index(indexFileName);
 				}
 				if (request.equals("r")){
-					System.out.println("Entrez le nom du fichier texte contenant l'index (sans extension): ");
+					System.out.println("Entrez le nom du fichier texte contenant l'index : ");
 					indexFileName = input.readLine();
 					File indexFile = new File(indexFileName);
 					while (!indexFile.isFile()){

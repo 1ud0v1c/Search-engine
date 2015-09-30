@@ -18,7 +18,7 @@ import utils.HandleFile;
 
 public class Launcher {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		while (true) {
 			System.out.println("Entrez r pour rechercher un ou plusieurs mots");
 			System.out.println("Entrez i pour lancer l'indexation");
@@ -26,20 +26,30 @@ public class Launcher {
 			BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
 			try {
 				String request = input.readLine();
+				String indexFileName;
 				if (request.equals("q")) {
 					return;
 				}
 				if (request.equals("i")) {
-					System.out.println("Entrez le nom du fichier à enregistrer l'index (sans extension) : ");
-					index(input.readLine());
-				} else {
-					System.out.println("Entrez le nom du fichier contenant l'index (sans extension): ");
-					String indexFileName = input.readLine();
+					System.out.println("Entrez le nom du fichier ï¿½ enregistrer l'index (sans extension) : ");
+					indexFileName = input.readLine();
+					index(indexFileName);
+				}
+				if (request.equals("r")){
+					System.out.println("Entrez le nom du fichier texte contenant l'index (sans extension): ");
+					indexFileName = input.readLine();
+					File indexFile = new File(indexFileName);
+					while (!indexFile.isFile()){
+						System.out.println(indexFileName+" n'est pas un fichier !");
+						System.out.println("Veuillez saisir un nom de fichier valide : ");
+						indexFileName = input.readLine();
+						indexFile = new File(indexFileName);
+					}
 					System.out.println("Entrez la requÃªte :");
 					request = input.readLine();
-					Search search = new Search(request, indexFileName+".txt");
+					Search search = new Search(request, indexFileName);
 					search.search();
-					System.out.println("Résultats : ");
+					System.out.println("Rï¿½sultats : ");
 					search.printResults();
 				}
 			} catch (IOException | ParseException e1) {

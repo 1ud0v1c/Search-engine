@@ -31,7 +31,7 @@ public class Launcher {
 					return;
 				}
 				if (request.equals("i")) {
-					System.out.println("Entrez le nom du fichier � enregistrer l'index  : ");
+					System.out.println("Entrez le nom du fichier où enregistrer l'index  : ");
 					indexFileName = input.readLine();
 					index(indexFileName);
 				}

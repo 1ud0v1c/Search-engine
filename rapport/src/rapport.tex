@@ -233,23 +233,31 @@ une classe qui va hériter de la classe Comparator.
 
 \section{Facultatifs}
 
-Nous avons donc, réaliser plusieurs choses en plus afin d'améliorer la performance de notre moteur de recherche. 
+Nous avons donc, réalisé plusieurs choses en plus afin d'améliorer la performance de notre moteur de recherche. 
 Pour l'indexation, nous avons utilisé les stop-lists afin de réduire l'impact des mots grammaticaux qui sont de toute évidence 
-moins intéressant.\\ 
+moins intéressants.\\ 
 \\
 Afin de pouvoir améliorer la pertinence de nos recherches nous utilisons le titre du fichier, si ce dernier possède des termes de 
 la requête dans son nom, on considère alors que le fichier aura sans doute de l'importance, on ajoute alors un poids de 500 (valeur 
-totalement arbitraire, qu'on aurai pu faire varier en fonction de paramètres comme la taille du document), afin de renforcer l'importance de ce 
+totalement arbitraire, qu'on aurait pu faire varier en fonction de paramètres comme la taille du document), afin de renforcer l'importance de ce 
 document par rapport aux autres.\\
 \\
-Nous aurions pu également implémenté une interface web à notre moteur de recherche, pour se faire nous aurions pu prévoir de fournir des arguments à un .jar
+Nous aurions pu également implémenter une interface web à notre moteur de recherche, pour ce faire nous aurions pu prévoir de fournir des arguments à un .jar
 qui aurait été appelé par exemple par une page web en php, notamment grâce à des fonctions comme exec. Toutefois, nous avons manqué de temps.
 
+\section{Captures d'écran}
+\begin{center}
+     \includegraphics[scale=0.4]{../data/index.png}\hfill
+     \includegraphics[scale=0.4]{../data/recherche-screen.png}
+\end{center}
+
+L'utilisateur choisit le nom du fichier pour l'index pour la recherche et l'indexation.\\
+L'indexation renvoie à l'utilisateur la liste de tous les fichiers indexés. La recherche quant à elle affiche la liste des fichiers où les mots ont été trouvés.
 
 \section{Performances}
 
 Nous avons décidé de mettre à l'épreuve notre moteur de recherche, nous avons rajouté une vingtaine de documents, notamment un livre de 2000 lignes (le fichier Saint irenee de Lyon). 
-Pour faire les tests, nous avons utilisés la classe System de java :
+Pour faire les tests, nous avons utilisé la classe System de java :
 
 \begin{lstlisting}
 long startTime = System.currentTimeMillis();
@@ -262,7 +270,7 @@ Nous avons alors mesuré le temps effectif passé sur l'indexation et la recherc
 entre les actions. Concernant l'indexation, voici quelques chiffres :
 \begin{itemize}
 	\item Pour les 10 fichiers de bases, l'indexation prend 100 ms.  
-	\item Pour 20 fichiers assez léger, elle prend environ 150 ms. 
+	\item Pour 20 fichiers assez légers, elle prend environ 150 ms. 
 	\item Pour les 30 fichiers, elle explose en passant à 800 ms.
 \end{itemize}
 

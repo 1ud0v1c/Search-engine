@@ -70,11 +70,9 @@ public class Launcher {
 
 		long startTime = System.currentTimeMillis();
 		
-		// Chargement de la stopList en m�moire
 		HandleFile hfStopList = new HandleFile("antidico.txt");
 		LinkedList<String> stopList = hfStopList.getWords();
 
-		// Parcourt des fichiers et remplissage des Documents.
 		File[] files = new File("corpus").listFiles();
 		for (File file : files) {
 			if (file.isFile()) {
@@ -89,8 +87,6 @@ public class Launcher {
 			}
 		}
 
-		// Calcul de la pond�ration pour chaque mot par rapport aux autres
-		// documents
 		for (Document doc : documents) {
 			String docName = doc.getDocumentName();
 			HashMap<Word, Double> indexes = doc.getIndexes();
@@ -104,7 +100,6 @@ public class Launcher {
 			}
 		}
 
-		// Pré-calcul pour la recherche d�pendant du document
 		for (Document doc : documents) {
 			double sumPonderationSquare = 0;
 			HashMap<Word, Double> indexes = doc.getIndexes();

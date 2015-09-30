@@ -1,11 +1,18 @@
 package index;
 
 import java.text.DecimalFormat;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * La classe Document est la représentation d'un document en mémoire, elle est composé de son nom, des mots qui compose le document associé à leur pondération
+ * ainsi que le calcul de la somme des pondération au carré qui va permettre d'accélérer la recherche en effectuant le calcul par avant.
+ * @author Lucie Lagarrigue 
+ * @author Ludovic Vimont
+ */
 public class Document {
 	private String documentName;
 	private HashMap<Word, Double>  indexes;
@@ -37,6 +44,11 @@ public class Document {
 		indexes.put(word, ponderation);
 	}
 	
+	/**
+	 * La fonction containsWord permet de vérifier si un mot existe déjà dans la HashMap du document
+	 * @param name : le mot dont on veut vérifier la présence
+	 * @return si le mot existe, on le retourne sinon on renvoit null.
+	 */
 	public Word containsWord(String name) {
 		Set<Word> words = indexes.keySet();
 			

@@ -16,11 +16,9 @@ public class LaunchIndexing {
 		LinkedList<Document> documents = new LinkedList<Document>();
 		HashMap<String, Integer> allWords = new HashMap<String, Integer>();
 
-		
-		// Chargement de la stopList en m�moire
+		// Chargement de la stopList en mémoire
 		HandleFile hfStopList = new HandleFile("antidico.txt");
 		LinkedList<String> stopList = hfStopList.getWords();
-
 		
 		// Parcourt des fichiers et remplissage des Documents.
 		File[] files = new File("corpus").listFiles();
@@ -37,7 +35,7 @@ public class LaunchIndexing {
 			}
 		}
 		
-		// Calcul de la pond�ration pour chaque mot par rapport aux autres documents
+		// Calcul de la pondération pour chaque mot par rapport aux autres documents
 		for (Document doc : documents) {
 			String docName = doc.getDocumentName();
 			HashMap<Word, Double> indexes = doc.getIndexes();
@@ -51,7 +49,7 @@ public class LaunchIndexing {
 			}
 		}
 		
-		// Pr�-calcul pour la recherche d�pendant du document
+		// Pré-calcul pour la recherche dépendant du document
 		for (Document doc : documents) {
 			double sumPonderationSquare = 0;
 			HashMap<Word, Double> indexes = doc.getIndexes();
@@ -66,14 +64,6 @@ public class LaunchIndexing {
 		
 		HandleFile hf = new HandleFile("index.txt");
 		hf.writeIndex(documents);
-
-//		System.out.println("--------------------------------------- Liste des mots ------------------------------------------------------");
-//		Iterator it = allWords.entrySet().iterator();
-//		while (it.hasNext()) {
-//			Map.Entry pair = (Map.Entry) it.next();
-//			System.out.println("Mot : " + pair.getKey() + " => pr�sence "
-//					+ pair.getValue());
-//		}
 
 	}
 }

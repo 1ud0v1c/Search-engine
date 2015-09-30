@@ -217,6 +217,7 @@ La recherche est composé de quatre étapes principales :
 \end{itemize}
 
 
+
 \section{Limite(s) de notre structure}
 
 Un des principales limites de notre structure, c'est le stockage des mots par HashMaps dans la
@@ -225,7 +226,25 @@ mot la HashMap n'étant pas prévu pour pouvoir récupérer une clé grâce à s
 oblige à faire un parcours de cette dernière, afin de pouvoir mettre à jour le mot existant
 au lieu d'en recréer un nouveau.
 
-La présence de HashMaps rend aussi le tri par valeur plus difficile : il faut créer une nouvelle classe pour pouvoir le faire.
+La présence de HashMaps rend aussi le tri par valeur plus difficile : en effet, java impose de créer 
+une classe qui va hériter de la classe Comparator.
+
+
+
+\section{Facultatifs}
+
+Nous avons donc, réaliser plusieurs choses en plus afin d'améliorer la performance de notre moteur de recherche. 
+Pour l'indexation, nous avons utilisé les stop-lists afin de réduire l'impact des mots grammaticaux qui sont de toute évidence 
+moins intéressant.\\ 
+\\
+Afin de pouvoir améliorer la pertinence de nos recherches nous utilisons le titre du fichier, si ce dernier possède des termes de 
+la requête dans son nom, on considère alors que le fichier aura sans doute de l'importance, on ajoute alors un poids de 500 (valeur 
+totalement arbitraire, qu'on aurai pu faire varier en fonction de paramètres comme la taille du document), afin de renforcer l'importance de ce 
+document par rapport aux autres.\\
+\\
+Nous aurions pu également implémenté une interface web à notre moteur de recherche, pour se faire nous aurions pu prévoir de fournir des arguments à un .jar
+qui aurait été appelé par exemple par une page web en php, notamment grâce à des fonctions comme exec. Toutefois, nous avons manqué de temps.
+
 
 \section{Performances}
 
@@ -253,5 +272,7 @@ compliqué. A l'inverse une fois l'indexation effectué notre recherche est asse
 \begin{center}
 	\includegraphics[scale=0.4]{../data/recherche.png}
 \end{center}
+
+
 
 \end{document}

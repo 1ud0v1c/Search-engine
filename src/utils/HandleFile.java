@@ -23,6 +23,13 @@ public class HandleFile {
 		this.fileName = fileName;
 	}
 	
+	/**
+	 * La fonction fillDocument permet de créer un document en fonction d'un nom de fichier donné
+	 * @param allWords Une liste que l'on met à jour qui va nous permettre de compter le nombre d'occurences d'un mot dans tout les documents
+	 * @param stopList Une stop-list qui permet d'élaguer le fichier index obtenu suite à l'indexation
+	 * @return Le document remplit et prêt à être utilsé.
+	 * @throws IOException
+	 */
 	public Document fillDocument(HashMap<String, Integer> allWords, LinkedList<String> stopList) throws IOException {
 		Document doc = new Document(fileName);
 		
@@ -53,6 +60,11 @@ public class HandleFile {
 		return doc;
 	}
 	
+	/**
+	 * La fonction writeIndex permet d'écrire le résultat des différents TF-IDF dans notre fichier final.
+	 * @param docs L'ensemble des documents 
+	 * @throws IOException
+	 */
 	public void writeIndex(LinkedList<Document> docs) throws IOException {
 		PrintWriter file = new PrintWriter(new FileWriter(fileName));
 		for (Document doc : docs) {
@@ -70,6 +82,12 @@ public class HandleFile {
 		file.close();
 	}
 
+	/**
+	 * La fonction getWords permet de récupérer toutes les lignes d'un fichier en lisant ce dernier ligne par ligne, ici on l'utilise pour
+	 * chager la stop-list.
+	 * @return Une liste de tout les lignes d'un fichier.
+	 * @throws IOException
+	 */
 	public LinkedList<String> getWords() throws IOException {
 		LinkedList<String> stopList = new LinkedList<String>();
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)));

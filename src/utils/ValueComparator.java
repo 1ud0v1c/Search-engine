@@ -3,6 +3,11 @@ package utils;
 import java.util.Comparator;
 import java.util.Map;
 
+/**
+ * La classe ValueComparator permet de trier une HashMap en fonction de la valeur d'une HashMap.
+ * @author Lucie Lagarrigue 
+ * @author Ludovic Vimont
+ */
 public class ValueComparator implements Comparator {
 	Map base;
 	

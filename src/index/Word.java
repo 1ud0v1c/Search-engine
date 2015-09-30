@@ -3,6 +3,12 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * La classe Word est la représentation d'un mot en mémoire, elle est composé de son nom et du nom du document où 
+ * elle se trouve associée à son nombre d'occurrences.
+ * @author Lucie Lagarrigue 
+ * @author Ludovic Vimont
+ */
 public class Word {
 	private String name;
 	private HashMap<String, Integer>  occurences = new HashMap<>();
@@ -27,7 +33,7 @@ public class Word {
 	public void setOccurences(HashMap<String, Integer> occurences) {
 		this.occurences = occurences;
 	}
-
+	
 	public void setWordWithOccurence(String file) {
 		int increment = occurences.get(file)+1;
 		occurences.put(file, increment);

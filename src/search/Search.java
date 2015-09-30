@@ -19,14 +19,14 @@ import utils.ValueComparator;
 public class Search {
 
 	private Map<String, Double> documentCoefs;
-	private List<String> words;
+	private List<String> wordsFromRequest;
 	private HashMap<String, Map<String, Double>> saltonCoefs;
 	private Map<String, Double> finalValues = null;
 	private String indexFileName;
 
 	public Search(String request, String inIndexFileName) {
 		super();
-		words = new ArrayList<>();
+		wordsFromRequest = new ArrayList<>();
 		indexFileName = inIndexFileName;
 		cleanRequest(request);
 		documentCoefs = new HashMap<String, Double>();
@@ -68,7 +68,15 @@ public class Search {
 			// des documents
 			if (document) {
 				documentName = firstElement;
-				documentCoefs.put(documentName, nf.parse(tokenizer.nextToken()).doubleValue());
+				double value = nf.parse(tokenizer.nextToken()).doubleValue();
+				//On rajoute un poids au document si jamais le titre comprend l'un des mots de la requête
+				StringTokenizer tempToken = new StringTokenizer(documentName, "_/.");
+				while(tempToken.hasMoreTokens()){
+					if(wordsFromRequest.contains(tempToken.nextToken().toLowerCase())){
+						value += 1000;
+					}
+				}
+				documentCoefs.put(documentName, value);
 				document = false;
 			} else {
 				// si l'information suivante est celle d'un document, on change
@@ -80,7 +88,7 @@ public class Search {
 				// si le mot trouvé dans l'index est l'un des mots de la
 				// requête, on récupère sa pondération et on calcule le
 				// coefficient de Salton
-				if (words.contains(word)) {
+				if (wordsFromRequest.contains(word)) {
 					ponderation += nf.parse(tokenizer.nextToken()).doubleValue();
 					HashMap<String, Double> temp = new HashMap<String, Double>();
 					double salton = calculateSaltonCoef(ponderation, documentName);
@@ -103,22 +111,20 @@ public class Search {
 		while (tokenizer.hasMoreTokens()) {
 			String temp = tokenizer.nextToken().toLowerCase();
 			if (temp.length() > 1) {
-				words.add(temp);
+				wordsFromRequest.add(temp);
 			}
 		}
 	}
 
 	private double calculateSaltonCoef(double ponderation, String documentName) {
-		return ponderation / Math.sqrt(documentCoefs.get(documentName) * words.size());
+		return ponderation / Math.sqrt(documentCoefs.get(documentName) * wordsFromRequest.size());
 	}
 
 	private void sortHashMaps() {
-		//On trie la liste des documents par valeur du coefficient
-		ValueComparator comparator = new ValueComparator(documentCoefs);
-		TreeMap<String, Double> temp = new TreeMap<String, Double>(comparator);
-		temp.putAll(documentCoefs);
-		documentCoefs = temp;
-
+		ValueComparator comparator;
+		TreeMap<String, Double> temp;
+		
+		double newCoeff= 0.0;
 		//On récupère les résultats, on les met dans une liste selon le document et le coefficient, puis on les trie selon la valeur du coefficient
 		Iterator it = saltonCoefs.entrySet().iterator();
 		HashMap<String, Double> values = new HashMap<String, Double>();
@@ -130,8 +136,12 @@ public class Search {
 			while (itInside.hasNext()) {
 				//On récupère uniquement le nom du document et le coefficient
 				Map.Entry pairInside = (Map.Entry) itInside.next();
-				values.put(docName, (double) pairInside.getValue());
+				newCoeff += (double)pairInside.getValue();
 			}
+			//On ajoute la pondération du document
+			newCoeff += documentCoefs.get(docName);
+			values.put(docName, newCoeff);
+			newCoeff = 0.0;
 		}
 		//On trie les résultats à afficher et on les stocke
 		comparator = new ValueComparator(values);

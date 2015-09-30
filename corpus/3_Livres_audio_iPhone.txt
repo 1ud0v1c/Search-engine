@@ -1,0 +1,116 @@
+Mettre des Livres Audio sur l'iPhone.
+
+Tout d’abord cette méthode peu paraître fastidieuse et longue. 
+Mais c’est surtout la description de cette méthode qui l’est en réalité.
+Dans les faits et avec un tout petit peu d’habitude, cela ne prend que 
+quelques minutes par livre.
+
+Dans la plupart des cas les informations à complèter le sont déjà 
+et il ne s’agit surtout alors que de vérifications.
+
+Cette méthode est aussi quasiment la même pour importer de la musique 
+(en adaptant quand mêmes un peu).
+
+***
+
+1ère étape : 
+Il faut préparer le livre.
+Pour cela aller dans le dossier où le livre audio attend l'heure 
+de son transfert vers la technologie du futur...
+Là ouvrir le dossier et une fois à l'intérieur 
+sélectionner tous les fichiers audio.
+Si le livre est divisé en cd ou chapitres, donc avec des sous dossiers, 
+il faudra faire cette première étape pour chaque sous dossier.
+Veiller qu'il y ait bien uniformité de fichiers audio (mp3 ou wma
+(donc aucun intru text, jpg ou autres)...)
+
+Quand ils sont bien sélectionnés, demander les propriétés de la sélection 
+par la combinaison de touches ALT + ENTRER.
+
+
+Là une fenêtre apparait où on choisit en principe l'onglet Résumé.
+Tabuler 1 fois pour aller au bouton Avancé  et faire Entrer dessus, 
+cela place sur Anné.
+(si quand on tabule une fois on tombes sur Année directement, 
+eh bien on a gagner du temps (c'est super  non ? )
+Donc quand on est sur année, on peut renseigner ce champ mais pas obligatoire.
+Pour cela taper directement les 4 chiffres et faire Entrer pour valider.
+Faire ensuite Flèches Haut pour remonter sur titre et là procèder 
+pareillement que pour Année
+Ensuite encore Flèche Haut pour remonter sur Artiste et refaire 
+comme précèdemment.
+Enfin, tabuler 2 fois et valider
+Ensuite Alt + F4 pour fermer la fenêtre
+
+Il est à noter que si le livre est découper en plusieurs cd , 
+que dans chaque cd les piste soient numérotées de la même manière 
+(c'est à dire que dans le cd 1, les plages soient numérotées de 1 à 20 par ex 
+et que dans le cd 2 les plages soient numérotées pareillement de 1 à 20), 
+ces plages risquent d'être lues avec d'abords toutes les plages 
+marquées 1 à la suite, puis les plages marquées 2 ainsi de suite.
+Pour éviter cela, il faut bien spécifier en remplissant le champs titre  
+qu'il s'agit du 
+cd1 (La Littérature Française pour les Nuls CD 1 par ex 
+et pour le cd 2 La Littérature Française pour les Nuls CD 2).
+
+***
+
+2ème étape :
+
+Ouvrir Itune
+ouvrir le menu Fichier  (Alt), descendre jusqu'à Ajouter à la bibliothèque, 
+et dans la boîte de dialogue qui s'ouvre,  aller chercher le livre 
+que l'on vient de préparer.
+Là, dans la colonne où apparait le nom de l'iphone, se positionner sur Musique 
+(premier item de la colonne juste au dessus de  film) 
+avec Flèche Haut ou Ba 
+(cette colone s'appelle, je crois, barre latérale d'itune.
+Quand on est sur Musique, tabuler jusqu'à "grouper par Album" 
+et cocher la case avec Espace.
+Reprendre la tabulation jusqu'à trouver la liste des albums de musique 
+(une tabulation après "potentiomètre horizontal agrandir/reduire les icônes...).
+Avec Flèche Droite, se déplacer jusqu'à trouver le nom du livre 
+préparer à l'étape 1.
+Une fois positionné dessus, faire Ctrl + i pour avoir les informations 
+du livre que nous allons compléter 
+(répondre par oui à la question qui est demandé à ce moment là).
+On se trouves maintenant  dans une boîte de dialogue avec des champs à compléter.
+On arrives d'abord sur l'ongletInfo et plus précisément 
+sur le premier champs Nom.
+Normalement il est remplis.
+Se déplacer de champs en champs par la touche tabulation et complèter 
+tout ce qui intérèsse.
+Tabuler ensuite jusqu'a revenir sur le titre de l'onglet Info 
+(surtout ne pas cliquer sur OK pour le moment).
+Là avec Flèche droite, se déplacer sur l'onglet Tri, tabuler et remplir 
+les champs nécessaires
+Tabuler ensuite jusqu'à revenir sur le titre de l'onglet Tri 
+(toujours sans cliquer sur OK).
+Avec Flèche Droite, se déplacer une fois sur l'onglet Option.
+Tabuler 3 fois et descendre avec Flèche bas jusqu'à Livre Audio.
+tabuler encore pour arriver sur Conserver la position  et avec Flèche droite 
+sélectionner Oui.
+Tabuler enfin jusqu'à OK et faire Entrer.
+
+***
+
+3 ème étape
+
+Là avec Flèche bas, descendre sur iphoneBatteries x %
+Ici, tabuler uusqu'au bouton Livre que l'on coche par la touche Espace
+Reprendre la tabulation jusqu'à  la case "Synchroniser les Livres Audio" 
+qui doit être cochée.
+Reprendre la tabulation et cocher le bouton "Sync Selected Audio Book".
+ensuite ttabuler une foisjusqu'à entendre VoiceOver annoncer le nom d'un livre.
+Dans cette colonne cocher le ou les livre à synchroniser.
+Tabuler encore une fois, et là si nécèssaire ne sélectionner que 
+certains chapitres d'un livre.
+Tabuler ensuite  jusqu'à "Appliquer" que l'on valide par la touche Entrer.
+Et là, il n'y a  plus qu'à attendre la musiquette de fin de synchronisation 
+et à nous la lecture en mobilité !
+
+A noter que maintenant le livre en question, comme tous ceux que 
+nous aurons préparer, ne se trouvent plus dans l'onglet musique 
+de la barre latèrale mais dans l'onglet livre de cette même barre.
+Un grand merci à Jacky Courcelle pour ce mémo très utile.
+

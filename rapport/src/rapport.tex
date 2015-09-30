@@ -166,7 +166,7 @@ Enfin, la dernière phase de l'indexation permet d'enregistrer les résultats ca
 fichier texte, dont voici un extrait :
 
 \begin{lstlisting}
-corpus/Automne_GA.txt 159,58
+corpus/Automne\_GA.txt 159,58
 cache 1,61
 hameaux 2,3
 ...
@@ -205,30 +205,40 @@ La classe dispose des attributs suivants :
 \end{itemize}
 Parmi ces attributs, il n'y a que le nom du fichier que la classe ne construira pas.
 
-\section{Défaut(s) de notre structure}
+\section{Limite(s) de notre structure}
 
-Un des principales défaut de notre structure, c'est le stockage des mots par HashMaps dans la
+Un des principales limites de notre structure, c'est le stockage des mots par HashMaps dans la
 la classe Document, lorsque l'on va parcourir le fichier afin de compter les occurences d'un
 mot la HashMap n'étant pas prévu pour pouvoir récupérer une clé grâce à sa valeur, cela nous
 oblige à faire un parcours de cette dernière, afin de pouvoir mettre à jour le mot existant
 au lieu d'en recréer un nouveau.
 
 
-\section{Implémentations}
+\section{Performances}
 
-Réalisé :
-- indexation
-- recherche
-- stop list
-- ligne de commande
-- ?
+Nous avons décidé de mettre à l'épreuve notre moteur de recherche, nous avons rajouté une vingtaine de documents, notamment un livre de 2000 lignes (le fichier Saint irenee de Lyon). 
+Pour faire les tests, nous avons utilisés la classe System de java :
 
+\begin{lstlisting}
+long startTime = System.currentTimeMillis();
+...
+long stopTime = System.currentTimeMillis();
+System.out.println("Temps écoulé : " + (stopTime - startTime) + " ms.");
+\end{lstlisting}
 
-% \section{Performances}
+Nous avons alors mesuré le temps effectif passé sur l'indexation et la recherche grâce au nombre de clocks écoulés
+entre les actions. Concernant l'indexation, voici quelques chiffres :
+\begin{itemize}
+	\item Pour les 10 fichiers de bases, l'indexation prend 100 ms.  
+	\item Pour 20 fichiers assez léger, elle prend environ 150 ms. 
+	\item Pour les 30 fichiers, elle explose en passant à 800 ms.
+\end{itemize}
 
+On se rend alors vite compte que le principe de l'indexation est lourd et que l'optimiser pourrait être très 
+compliqué. A l'inverse une fois l'indexation effectué notre recherche est assez rapide, elle prend seulement 75 ms. Comme, on peut le voir sur la capture suivante.
 
-\section{Conclusion}
-
-
+\begin{center}
+	\includegraphics[scale=0.4]{../data/recherche.png}
+\end{center}
 
 \end{document}

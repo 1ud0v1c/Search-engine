@@ -47,10 +47,15 @@ public class Launcher {
 					}
 					System.out.println("Entrez la requête :");
 					request = input.readLine();
+					
+					long startTime = System.currentTimeMillis();
 					Search search = new Search(request, indexFileName);
 					search.search();
-					System.out.println("R�sultats : ");
+					System.out.println("Résultats : ");
 					search.printResults();
+					
+					long stopTime = System.currentTimeMillis();
+					System.out.println("La recherche a pris : " + (stopTime - startTime) + " ms.");
 				}
 			} catch (IOException | ParseException e1) {
 				e1.printStackTrace();
@@ -63,6 +68,8 @@ public class Launcher {
 		LinkedList<Document> documents = new LinkedList<Document>();
 		HashMap<String, Integer> allWords = new HashMap<String, Integer>();
 
+		long startTime = System.currentTimeMillis();
+		
 		// Chargement de la stopList en m�moire
 		HandleFile hfStopList = new HandleFile("antidico.txt");
 		LinkedList<String> stopList = hfStopList.getWords();
@@ -97,7 +104,7 @@ public class Launcher {
 			}
 		}
 
-		// Pr�-calcul pour la recherche d�pendant du document
+		// Pré-calcul pour la recherche d�pendant du document
 		for (Document doc : documents) {
 			double sumPonderationSquare = 0;
 			HashMap<Word, Double> indexes = doc.getIndexes();
@@ -112,6 +119,9 @@ public class Launcher {
 
 		HandleFile hf = new HandleFile(indexFileName+".txt");
 		hf.writeIndex(documents);
+		
+		long stopTime = System.currentTimeMillis();
+		System.out.println("Fin de l'indexation en : " + (stopTime - startTime) + " ms.");
 	}
 
 }

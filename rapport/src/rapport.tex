@@ -12,10 +12,14 @@
 \makegapedcells
 \usepackage[table]{xcolor}
 
+\definecolor{darkWhite}{rgb}{0.94,0.94,0.94}
+
 \newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
 
 \lstset{
-  backgroundcolor=\color{white},
+  aboveskip=3mm,
+  belowskip=-2mm,
+  backgroundcolor=\color{darkWhite},
   basicstyle=\footnotesize,
   breakatwhitespace=false,
   breaklines=true,
@@ -24,7 +28,10 @@
   deletekeywords={...},
   escapeinside={\%*}{*)},
   extendedchars=true,
-  frame=false,
+  framexleftmargin=16pt,
+  framextopmargin=3pt,
+  framexbottommargin=6pt,
+  frame=tb,
   keepspaces=true,
   keywordstyle=\color{blue},
   language=Java,
@@ -63,7 +70,7 @@
   {Í}{{\~{Í}}}1,
   morekeywords={*,...},
   numbers=left,
-  numbersep=5pt,
+  numbersep=10pt,
   numberstyle=\tiny\color{black},
   rulecolor=\color{black},
   showspaces=false,
@@ -197,8 +204,8 @@ public class Search {
 
 La classe dispose des attributs suivants :
 \begin{itemize}
-  \item Une Map contenant le nom du document et son coefficient 
-  \item Une liste des mots contenus dans la requête de l'utilisateur 
+  \item Une Map contenant le nom du document et son coefficient
+  \item Une liste des mots contenus dans la requête de l'utilisateur
   \item Une HashMap mettant en relation les documents, les mots et le coefficient de Salton pour un mot dans un document donné
   \item Une Map contenant les informations simplifiées qui seront affichées comme résultat à l'utilisateur
   \item Une variable stockant le nom du fichier contenant l'index, qui sera donné au constructeur de la classe
@@ -212,7 +219,7 @@ La recherche est composé de quatre étapes principales :
 	  Si l'un des mots de la requête est compris dans le titre, on augmente grandement la pondération du document. Cette valeur est arbitraire.
 	  Lorsqu'on rencontre un mot, on regarde s'il est dans la requête. Si oui, on le stocke en reliant le document dans lequel il est. On enregistre également sa pondération.
      \item Lorsqu'on a tous ces éléments, on calcule le coefficient de Salton pour chaque document et on le stocke dans une nouvelle liste.
-     \item On peut ensuite trier les résultats. Pour cela, on utilise le nombre de mots correspondant dans chaque document, leur pondération, le coefficient de Salton. 
+     \item On peut ensuite trier les résultats. Pour cela, on utilise le nombre de mots correspondant dans chaque document, leur pondération, le coefficient de Salton.
 	  On a juste à mettre ensemble tout ce qui a été récupéré ou calculé précédemment. On peut donc ensuite afficher la liste des documents dans lesquels la requête a été trouvé dans un bon ordre.
 \end{itemize}
 
@@ -226,20 +233,20 @@ mot la HashMap n'étant pas prévu pour pouvoir récupérer une clé grâce à s
 oblige à faire un parcours de cette dernière, afin de pouvoir mettre à jour le mot existant
 au lieu d'en recréer un nouveau.
 
-La présence de HashMaps rend aussi le tri par valeur plus difficile : en effet, java impose de créer 
+La présence de HashMaps rend aussi le tri par valeur plus difficile : en effet, java impose de créer
 une classe qui va hériter de la classe Comparator.
 
 
 
 \section{Facultatifs}
 
-Nous avons donc, réalisé plusieurs choses en plus afin d'améliorer la performance de notre moteur de recherche. 
-Pour l'indexation, nous avons utilisé les stop-lists afin de réduire l'impact des mots grammaticaux qui sont de toute évidence 
-moins intéressants.\\ 
+Nous avons donc, réalisé plusieurs choses en plus afin d'améliorer la performance de notre moteur de recherche.
+Pour l'indexation, nous avons utilisé les stop-lists afin de réduire l'impact des mots grammaticaux qui sont de toute évidence
+moins intéressants.\\
 \\
-Afin de pouvoir améliorer la pertinence de nos recherches nous utilisons le titre du fichier, si ce dernier possède des termes de 
-la requête dans son nom, on considère alors que le fichier aura sans doute de l'importance, on ajoute alors un poids de 500 (valeur 
-totalement arbitraire, qu'on aurait pu faire varier en fonction de paramètres comme la taille du document), afin de renforcer l'importance de ce 
+Afin de pouvoir améliorer la pertinence de nos recherches nous utilisons le titre du fichier, si ce dernier possède des termes de
+la requête dans son nom, on considère alors que le fichier aura sans doute de l'importance, on ajoute alors un poids de 500 (valeur
+totalement arbitraire, qu'on aurait pu faire varier en fonction de paramètres comme la taille du document), afin de renforcer l'importance de ce
 document par rapport aux autres.\\
 \\
 Nous aurions pu également implémenter une interface web à notre moteur de recherche, pour ce faire nous aurions pu prévoir de fournir des arguments à un .jar
@@ -256,7 +263,7 @@ L'indexation renvoie à l'utilisateur la liste de tous les fichiers indexés. La
 
 \section{Performances}
 
-Nous avons décidé de mettre à l'épreuve notre moteur de recherche, nous avons rajouté une vingtaine de documents, notamment un livre de 2000 lignes (le fichier Saint irenee de Lyon). 
+Nous avons décidé de mettre à l'épreuve notre moteur de recherche, nous avons rajouté une vingtaine de documents, notamment un livre de 2000 lignes (le fichier Saint irenee de Lyon).
 Pour faire les tests, nous avons utilisé la classe System de java :
 
 \begin{lstlisting}
@@ -269,12 +276,12 @@ System.out.println("Temps écoulé : " + (stopTime - startTime) + " ms.");
 Nous avons alors mesuré le temps effectif passé sur l'indexation et la recherche grâce au nombre de clocks écoulés
 entre les actions. Concernant l'indexation, voici quelques chiffres :
 \begin{itemize}
-	\item Pour les 10 fichiers de bases, l'indexation prend 100 ms.  
-	\item Pour 20 fichiers assez légers, elle prend environ 150 ms. 
+	\item Pour les 10 fichiers de bases, l'indexation prend 100 ms.
+	\item Pour 20 fichiers assez légers, elle prend environ 150 ms.
 	\item Pour les 30 fichiers, elle explose en passant à 800 ms.
 \end{itemize}
 
-On se rend alors vite compte que le principe de l'indexation est lourd et que l'optimiser pourrait être très 
+On se rend alors vite compte que le principe de l'indexation est lourd et que l'optimiser pourrait être très
 compliqué. A l'inverse une fois l'indexation effectué notre recherche est assez rapide, elle prend seulement 75 ms. Comme, on peut le voir sur la capture suivante.
 
 \begin{center}

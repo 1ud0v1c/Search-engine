@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * La classe Document est la représentation d'un document en mémoire, elle est composé de son nom, des mots qui compose le document associé à leur pondération
- * ainsi que le calcul de la somme des pondération au carré qui va permettre d'accélérer la recherche en effectuant le calcul par avant.
+ * La classe Document est la représentation d'un document en mémoire, elle est composée de son nom, des mots qui composent le document associé à leur pondération
+ * ainsi que le calcul de la somme des pondérations au carré qui va permettre d'accélérer la recherche en effectuant le calcul par avant.
  * @author Lucie Lagarrigue 
  * @author Ludovic Vimont
  */

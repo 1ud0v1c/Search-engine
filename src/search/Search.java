@@ -16,6 +16,12 @@ import java.util.TreeMap;
 
 import utils.ValueComparator;
 
+/**
+ * La classe Seach permet d'effectuer une rechercher à partir d'une requête saisie par l'utilisateur.
+ * Elle gère la lecture des indexes, le calcul de la pondération et l'affichage des résultats
+ * @author Lucie Lagarrigue
+ * @author Ludovic Vimont
+ */
 public class Search {
 
 	private Map<String, Double> documentCoefs;
@@ -33,10 +39,18 @@ public class Search {
 		saltonCoefs = new HashMap<String, Map<String, Double>>();
 	}
 
+	/**
+	 * Lance la recherche
+	 * @throws IOException si le fichier index ne peut être lu
+	 * @throws ParseException si on ne peut pas convertir les données lues en double
+	 */
 	public void search() throws IOException, ParseException {
 		readIndexes();
 	}
 
+	/**
+	 * Affiche le contenu de la Map finalValues
+	 */
 	public void printResults() {
 		if (finalValues != null) {
 			if (finalValues.isEmpty()) {
@@ -51,6 +65,12 @@ public class Search {
 		}
 	}
 
+	/**
+	 * Lit le contenu du fichier des indexes et enregistre les données dans les
+	 * différentes Maps.
+	 * @throws IOException si on ne peut pas ouvrir le fichier
+	 * @throws ParseException si on ne peut pas convertir les données lues en double
+	 */
 	private void readIndexes() throws IOException, ParseException {
 		boolean document = true;
 		File indexFile = new File(indexFileName);
@@ -69,10 +89,11 @@ public class Search {
 			if (document) {
 				documentName = firstElement;
 				double value = nf.parse(tokenizer.nextToken()).doubleValue();
-				//On rajoute un poids au document si jamais le titre comprend l'un des mots de la requête
+				// On rajoute un poids au document si jamais le titre comprend
+				// l'un des mots de la requête
 				StringTokenizer tempToken = new StringTokenizer(documentName, "_/.");
-				while(tempToken.hasMoreTokens()){
-					if(wordsFromRequest.contains(tempToken.nextToken().toLowerCase())){
+				while (tempToken.hasMoreTokens()) {
+					if (wordsFromRequest.contains(tempToken.nextToken().toLowerCase())) {
 						value += 1000;
 					}
 				}
@@ -105,8 +126,13 @@ public class Search {
 		sortHashMaps();
 	}
 
+	/**
+	 * Nettoie la requête en enlevant toute la ponctuation et stocke les
+	 * différents mots dans une List
+	 * @param request la requête entrée par l'utilisateur
+	 */
 	private void cleanRequest(String request) {
-		//On récupère les différents mots de la requête et on les enregistre
+		// On récupère les différents mots de la requête et on les enregistre
 		StringTokenizer tokenizer = new StringTokenizer(request, " ,;.:!?'()");
 		while (tokenizer.hasMoreTokens()) {
 			String temp = tokenizer.nextToken().toLowerCase();
@@ -116,16 +142,28 @@ public class Search {
 		}
 	}
 
+	/**
+	 * Calcule le coefficient de Salton pour le document et le mot
+	 * @param ponderation la ponderation du mot
+	 * @param documentName le nom du document qui contient le mot
+	 * @return le résultat du calcul
+	 */
 	private double calculateSaltonCoef(double ponderation, String documentName) {
 		return ponderation / Math.sqrt(documentCoefs.get(documentName) * wordsFromRequest.size());
 	}
 
+	/**
+	 * Trie les HashMaps et crée la Map contenant les valeurs à afficher en
+	 * résultat final
+	 */
 	private void sortHashMaps() {
 		ValueComparator comparator;
 		TreeMap<String, Double> temp;
-		
-		double newCoeff= 0.0;
-		//On récupère les résultats, on les met dans une liste selon le document et le coefficient, puis on les trie selon la valeur du coefficient
+
+		double newCoeff = 0.0;
+		// On récupère les résultats, on les met dans une liste selon le
+		// document et le coefficient, puis on les trie selon la valeur du
+		// coefficient
 		Iterator it = saltonCoefs.entrySet().iterator();
 		HashMap<String, Double> values = new HashMap<String, Double>();
 		while (it.hasNext()) {
@@ -134,22 +172,26 @@ public class Search {
 			HashMap<String, Double> value = (HashMap<String, Double>) pair.getValue();
 			Iterator itInside = value.entrySet().iterator();
 			while (itInside.hasNext()) {
-				//On récupère uniquement le nom du document et le coefficient
+				// On récupère uniquement le nom du document et le coefficient
 				Map.Entry pairInside = (Map.Entry) itInside.next();
-				newCoeff += (double)pairInside.getValue();
+				newCoeff += (double) pairInside.getValue();
 			}
-			//On ajoute la pondération du document
+			// On ajoute la pondération du document
 			newCoeff += documentCoefs.get(docName);
 			values.put(docName, newCoeff);
 			newCoeff = 0.0;
 		}
-		//On trie les résultats à afficher et on les stocke
+		// On trie les résultats à afficher et on les stocke
 		comparator = new ValueComparator(values);
 		temp = new TreeMap<String, Double>(comparator);
 		temp.putAll(values);
 		finalValues = temp;
 	}
 
+	/**
+	 * Affiche les différentes Maps utilisées dans cette classe. Cette méthode
+	 * n'est utilisée que pour simplifier les tests et le debug
+	 */
 	private void hashstoString() {
 		System.out.println("Document coefs : ");
 		printMap(documentCoefs);
@@ -159,6 +201,11 @@ public class Search {
 		printMap(finalValues);
 	}
 
+	/**
+	 * Affiche le contenu de la map passée en paramètre de la manière : clé =
+	 * valeur
+	 * @param mapla Map à afficher
+	 */
 	private void printMap(Map map) {
 		Iterator it = map.entrySet().iterator();
 		while (it.hasNext()) {

@@ -25,9 +25,9 @@ public class HandleFile {
 	
 	/**
 	 * La fonction fillDocument permet de créer un document en fonction d'un nom de fichier donné
-	 * @param allWords Une liste que l'on met à jour qui va nous permettre de compter le nombre d'occurences d'un mot dans tout les documents
+	 * @param allWords Une liste que l'on met à jour qui va nous permettre de compter le nombre d'occurences d'un mot dans tous les documents
 	 * @param stopList Une stop-list qui permet d'élaguer le fichier index obtenu suite à l'indexation
-	 * @return Le document remplit et prêt à être utilsé.
+	 * @return Le document rempli et prêt à être utilsé.
 	 * @throws IOException
 	 */
 	public Document fillDocument(HashMap<String, Integer> allWords, LinkedList<String> stopList) throws IOException {
@@ -84,8 +84,8 @@ public class HandleFile {
 
 	/**
 	 * La fonction getWords permet de récupérer toutes les lignes d'un fichier en lisant ce dernier ligne par ligne, ici on l'utilise pour
-	 * chager la stop-list.
-	 * @return Une liste de tout les lignes d'un fichier.
+	 * charger la stop-list.
+	 * @return Une liste de toutes les lignes d'un fichier.
 	 * @throws IOException
 	 */
 	public LinkedList<String> getWords() throws IOException {
